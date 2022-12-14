@@ -1,0 +1,40 @@
+@font-face {
+    font-family: herprackerTitle;
+    src: url(RussoOne-Regular.ttf);
+}
+
+.active_link {
+    font-weight: bold;
+}
+
+.navbar {
+    background-color: #819705;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 18px 18px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.navbar p {
+    float: left;
+    text-align: center;
+    padding: 1px 16px;
+    font-family: herprackerTitle;
+}
+
+.titleherp {
+    color: #f2f2f2;
+    font-size: 20px;
+}
+
+.titletracker {
+    color:black;
+    font-size: 16px;
+}
