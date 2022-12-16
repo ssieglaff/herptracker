@@ -1,14 +1,45 @@
 version: '2.13'
 services:
-  frontend:
+  herptracker:
     build:
       context: .
       args:
         - NODE_ENV=local
-      dockerfile: frontend/Dockerfile
+      dockerfile: herptracker/Dockerfile
     ports:
       - "8000:8000"
+    #volumes:
+    #  - ./herptracker:/code
+    command: bash -c "
+      python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8000"
+    container_name: herptracker-app
+    depends_on:
+      - herpdb
+      - userdb
+
+  herpdb:
+    image: postgres:13
     volumes:
-      - ./frontend:/code
-    command: python manage.py runserver 0.0.0.0:8000
-  
+      - postgres_herp_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    container_name: herptracker-herpdb
+
+  userdb:
+    image: postgres:13
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    command: -p 5433
+    container_name: herptracker-userdb
+
+volumes:
+  postgres_herp_data:
+  postgres_user_data:

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+{% load tags %}
+{% load static %}
+
+
+{% url 'home' as home %}
+{% url 'dataEntryHerps' as entryHerps %}
+{% url 'dataEntryObs' as entryObs %}
+{% url 'dataAnalysisHerps' as analysisHerps %}
+{% url 'dataAnalysisObs' as analysisObs %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>{% block title %}Herptracker{% endblock %}</title>
+</head>
+
+<body>
+    <div class="navbar" id="navigation">
+        <div class="titleblock"><p><span class="titleherp">herp</span><span class="titletracker">TRACKER</span></p></div>
+        <div class="navlinks">
+            <a class="{% active request 'home' %}" href="{{ home }}">Home</a>
+            <a class="{% active request 'data/entry/herps' %}" href="{{ entryHerps }}">Entry (herps)</a>
+            <a class="{% active request 'data/entry/observations' %}" href="{{ entryObs }}">Entry (obs)</a>
+            <a class="{% active request 'data/analysis/herps' %}" href="{{ analysisHerps }}">Analysis (herps)</a>
+            <a class="{% active request 'data/analysis/observations' %}" href="{{ analysisObs }}">Analysis (obs)</a>
+        </div>
+        <div class="login-container">
+            {% if user.is_authenticated %}
+                <p>Hi, {{ user.username }}!</p><a href="{% url 'logout' %}">Log Out</a>
+            {% else %}
+                <p>No user.</p><a href="{% url 'login' %}">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+

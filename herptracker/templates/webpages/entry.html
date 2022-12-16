@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Herptracker Data Entry{% endblock %}
+
+{% block content %}
+    <form action={{ actionURL }} method="post" target={{ targetURL }}>
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit" value="Submit" target="">
+    </form>
+{% endblock %}
+
